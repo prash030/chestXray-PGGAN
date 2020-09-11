@@ -1,6 +1,8 @@
 # chestXray-PGGAN
 High Resolution Chest X-ray Image Synthesis Using Progressive-Growing Generative Adversarial Networks
 
+**This repository is under construction.**
+
 ## Description
 
 *For a detailed description of the work, please refer to the following article:*
