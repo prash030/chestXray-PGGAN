@@ -14,11 +14,11 @@ The goal of training a PG-GAN in this work is to perform GAN-based Augmentation 
 
 The normal and abnormal images were randomly selected from the RSNA collection, and split into equal number (N = 6268) for training set while the rest (N = 2686 for normals and N = 5385 for abnormals) were used for test set. The PG-GAN was individually trained on the normal and abnormal images in the training set. Each training phase took about six days on a high-performance machine with an NVIDIA GTX 1080Ti GPU and 48GB RAM. An example of progressive resolutions at different training instances is shown in Figure 1. 
 
-**The model weights after the network was fully trained, which took about 150 epochs, is available in the following Google Drive location: https://drive.google.com/drive/folders/1QsOWk6xU9cV2Qeg6uRSVMZP_AVgro0d6?usp=sharing **
+**The model weights after the network was fully trained, which took about 150 epochs, is available in the following Google Drive location: https://drive.google.com/drive/folders/1QsOWk6xU9cV2Qeg6uRSVMZP_AVgro0d6?usp=sharing**
 
 ## Instructions to Use the Model
 
-Detailed instructions on training, testing and image synthesis can be found in Terro Karras' github: https://github.com/tkarras/progressive_growing_of_gans
+*Detailed instructions on training, testing and image synthesis can be found in Terro Karras' github:* https://github.com/tkarras/progressive_growing_of_gans
 
 ### Dataset Preparation:
 dataset_tool.py [-h] create_from_images datasets/tfrec_rsnaNormal trainingset/rsnaNormal
@@ -34,18 +34,14 @@ Statement from Karras' Github: “By default, config.py is configured to train a
 Edit config.py for rsnaNormal 512x512:
 data_dir = 'datasets'
 result_dir = 'results' # Make a directory named “results” to store the results
-
 desc = 'pgan' # this is just a string to label what kind of dataset you run
-
 desc += '-rsnaNormal';   dataset = EasyDict(tfrecord_dir='rsnaNormal')
-
 desc += '-preset-v2-1gpu'; num_gpus = 1; sched.minibatch_base = 4; sched.minibatch_dict = {4: 128, 8: 128, 16: 128, 32: 64, 64: 32, 128: 16, 256: 8, 512: 4}; sched.G_lrate_dict = {512: 0.0015}; sched.D_lrate_dict = EasyDict(sched.G_lrate_dict); train.total_kimg = 15000
-
 desc += '-fp32'; sched.max_minibatch_per_gpu = {256: 16, 512: 8}
 
-From Karras Github: “The training script saves a snapshot of randomly generated images at regular intervals in fakes*.png and reports the overall progress in log.txt.”
+From Karras' Github: “The training script saves a snapshot of randomly generated images at regular intervals in fakes*.png and reports the overall progress in log.txt.”
 
-### Synthesizing Images
+### Synthesizing Images:
 python train.py
 
 train = EasyDict(func='util_scripts.generate_fake_images', run_id='000-pgan-rsnaNormal-preset-v2-1gpu-fp32', num_pngs=6300); num_gpus = 1; desc = 'fake-images-' + str(train.run_id)
@@ -54,3 +50,4 @@ This synthesizes images from the network saved in “networks/” folder.
 
 # References:
 [1] Karras T, Aila T, Laine S, Lehtinen J. Progressive growing of gans for improved quality, stability, and variation. arXiv preprint arXiv:1710.10196. 2017 Oct 27.
+[2] Ganesan P, Rajaraman S, Long R, Ghoraani B, Antani S. Assessment of Data Augmentation Strategies Toward Performance Improvement of Abnormality Classification in Chest Radiographs. In 2019 41st Annual International Conference of the IEEE Engineering in Medicine and Biology Society (EMBC) 2019 Jul 23 (pp. 841-844). IEEE.
