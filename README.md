@@ -6,7 +6,10 @@ High Resolution Chest X-ray Image Synthesis Using Progressive-Growing Generative
 *For a detailed description of the work, please refer to the following article:*
 
 
-Ganesan P, Rajaraman S, Long R, Ghoraani B, Antani S. Assessment of Data Augmentation Strategies Toward Performance Improvement of Abnormality Classification in Chest Radiographs. In 2019 41st Annual International Conference of the IEEE Engineering in Medicine and Biology Society (EMBC) 2019 Jul 23 (pp. 841-844). IEEE.
+**Ganesan P, Rajaraman S, Long R, Ghoraani B, Antani S. Assessment of Data Augmentation Strategies Toward Performance Improvement of Abnormality Classification in Chest Radiographs. In 2019 41st Annual International Conference of the IEEE Engineering in Medicine and Biology Society (EMBC) 2019 Jul 23 (pp. 841-844). IEEE.**
+
+
+*Note: If you found this repository helpful, please consider citing the above paper.*
 
 
 PG-GAN was introduced by Karras et al.,[1] as an attempt to synthesize high-resolution images (upto 1024x1024 pixels), which were not realizable by DC-GANs. The primary reason for the difficulty in achieving high-resolution images before the introduction of PG-GANs was that the weights could not be learned consistently while searching for the global minimum using a network of that size. To circumvent this limitation, the weights in PG-GAN are learned by progressively growing the network starting from a 4x4 up to the final resolution. For example, in case of an image with a resolution of 512x512 pixels, the image is first downsampled into resolutions of 4x4, 8x8, 16x16, and all the way to 512x512. Then, the network is trained starting from the smallest resolution. After training the smallest resolution, the network is grown to the next resolution and the training is continued using the previous weights. In other words, the weights of the smaller resolutions are fully learned before switching the network to the higher resolution, thus making it possible for the network to reach the global minimum for the higher resolution weights. The network model is shown in Figure 1. More details on the PG-GAN model can be found in Ref.[1]. We utilize this model to synthesize high-resolution CXR images as explained in the following section.
